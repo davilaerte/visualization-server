@@ -38,8 +38,6 @@ public class VisualizationRestController {
 		String className = "com.example.visualization.models." + nClass;
 		String javaCode = "package com.example.visualization.models;\n" + nCode;
 		
-		System.out.println(javaCode);
-		
 		try {
 			Class<?> jClass = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode);
 			@SuppressWarnings("deprecation")
