@@ -37,7 +37,7 @@ public class VisualizationRestController {
 		String nCode = rCode.toString().replaceAll("class\\s+\\w+\\s+implements", "class " + nClass + " implements");
 		String className = "com.example.visualization.models." + nClass;
 		String javaCode = "package com.example.visualization.models;\n" + nCode;
-		
+		Node node = new Node();
 		try {
 			Class<?> jClass = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode);
 			@SuppressWarnings("deprecation")
