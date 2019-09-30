@@ -45,7 +45,7 @@ public class VisualizationRestController {
 			eds.put(uniqueID, newED);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		return new ResponseEntity<String>(uniqueID, HttpStatus.OK);
