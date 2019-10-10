@@ -1,4 +1,4 @@
-package com.example.visualization.models;
+package com.example.visualization.impl.models;
 
 public class Node {
 	

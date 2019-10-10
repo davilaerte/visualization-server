@@ -1,12 +1,12 @@
-package com.example.visualization.util.models;
+package com.example.visualization.models;
 
-public class LinkDThreeFormat {
+public class LinkImplFormat {
 	public Integer source;
 	public Integer target;
 	public boolean left;
 	public boolean right;
 	
-	public LinkDThreeFormat(Integer source, Integer target) {
+	public LinkImplFormat(Integer source, Integer target) {
 		this.source = source;
 		this.target = target;
 		this.left = false;

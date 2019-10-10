@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.visualization.models.ILinkedList;
-import com.example.visualization.models.Node;
-import com.example.visualization.util.models.EdDThreeFormat;
-import com.example.visualization.util.models.LinkDThreeFormat;
-import com.example.visualization.util.models.NodeDThreeFormat;
+import com.example.visualization.impl.models.ILinkedList;
+import com.example.visualization.impl.models.Node;
+import com.example.visualization.models.DSImplFormat;
+import com.example.visualization.models.LinkImplFormat;
+import com.example.visualization.models.NodeImplFormat;
 
 import net.openhft.compiler.CompilerUtils;
 
@@ -35,13 +35,13 @@ public class VisualizationRestController {
 						   .replace("\\t", "");
 		String nClass = "MyClass" + uniqueID;
 		String nCode = rCode.toString().replaceAll("class\\s+\\w+\\s+implements", "class " + nClass + " implements");
-		String className = "com.example.visualization.models." + nClass;
-		String javaCode = "package com.example.visualization.models;\n" + nCode;
+		String className = "com.example.visualization.impl.models." + nClass;
+		String javaCode = "package com.example.visualization.impl.models;\n" + nCode;
 		
 		try {
 			Class<?> jClass = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode);
 			@SuppressWarnings("deprecation")
-			ILinkedList newED = (ILinkedList)jClass.newInstance();
+			ILinkedList newED = (ILinkedList.class.cast(jClass.newInstance()));
 			eds.put(uniqueID, newED);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -52,24 +52,24 @@ public class VisualizationRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<EdDThreeFormat> getAdd(@RequestParam("id") String id, @RequestBody String element) {
+	public ResponseEntity<DSImplFormat> getAdd(@RequestParam("id") String id, @RequestBody String element) {
 		ILinkedList ed = eds.get(id);
 		ed.insert(Integer.valueOf(element.toString().substring(1,element.toString().length()-1)));
 		
-		EdDThreeFormat formatedEd = new EdDThreeFormat();
+		DSImplFormat formatedEd = new DSImplFormat();
 		Node node = ed.getHead();
 		Integer counter = 0;
 		while(node != null) {
-			NodeDThreeFormat formatedNode = new NodeDThreeFormat(counter, String.valueOf(node.data));
+			NodeImplFormat formatedNode = new NodeImplFormat(counter, String.valueOf(node.data));
 			formatedEd.nodes.add(formatedNode);
 			if (node.next != null) {
-				LinkDThreeFormat formatedLink = new LinkDThreeFormat(counter, counter + 1);
+				LinkImplFormat formatedLink = new LinkImplFormat(counter, counter + 1);
 				formatedEd.links.add(formatedLink);
 			}			
 			counter++;
 			node = node.next;
 		}
 
-		return new ResponseEntity<EdDThreeFormat>(formatedEd, HttpStatus.OK);
+		return new ResponseEntity<DSImplFormat>(formatedEd, HttpStatus.OK);
 	}
 }
