@@ -3,11 +3,11 @@ package com.example.visualization.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DSImplFormat {
-	public List<NodeImplFormat> nodes;
-	public List<LinkImplFormat> links;
+public class DSVisualizationFormat {
+	public List<NodeVisualizationFormat> nodes;
+	public List<LinkVisualizationFormat> links;
 	
-	public DSImplFormat() {
+	public DSVisualizationFormat() {
 		this.nodes = new ArrayList<>();
 		this.links = new ArrayList<>();		
 	}

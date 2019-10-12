@@ -6,5 +6,5 @@ public interface ILinkedList {
 	
 	public void remove(Integer element);
 	
-	public Node getHead();
+	public LinkedListNode getHead();
 }

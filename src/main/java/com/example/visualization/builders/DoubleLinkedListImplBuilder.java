@@ -25,8 +25,8 @@ public class DoubleLinkedListImplBuilder extends LinkedListImplBuilder {
 	
 	@Override
 	public String buildImplAttributes() {
-		return " private Node head; " + 
-			   " private Node last; ";
+		return " private DoubleLinkedListNode head; " + 
+			   " private DoubleLinkedListNode last; ";
 	}
 	
 	public String buildImplInsertFirstMethod() {
@@ -56,6 +56,14 @@ public class DoubleLinkedListImplBuilder extends LinkedListImplBuilder {
 		String method = "public void " + nameMethod + "() { " + 
 							bodyMethod +
 						" } ";
+		return method;
+	}
+	
+	@Override
+	public String buildDefaultGetHeadMethod() {
+		String method = "public DoubleLinkedListNode getHead() { " + 
+				 			"return this.head;" +
+				 		" } ";
 		return method;
 	}
 }

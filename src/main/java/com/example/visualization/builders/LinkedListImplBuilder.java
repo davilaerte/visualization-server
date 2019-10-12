@@ -29,7 +29,7 @@ public class LinkedListImplBuilder extends ClassImplBuilder {
 	}
 	
 	public String buildImplAttributes() {
-		return " private Node head; ";
+		return " private LinkedListNode head; ";
 	}
 	
 	public String buildImplInsertMethod() {
@@ -53,7 +53,7 @@ public class LinkedListImplBuilder extends ClassImplBuilder {
 	}
 	
 	public String buildDefaultGetHeadMethod() {
-		String method = "public Node getHead() { " + 
+		String method = "public LinkedListNode getHead() { " + 
 				 			"return this.head;" +
 				 		" } ";
 		return method;

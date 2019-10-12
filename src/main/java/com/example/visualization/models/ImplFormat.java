@@ -4,24 +4,24 @@ import java.util.Map;
 
 public class ImplFormat {
 	
-	private TiposImpl tipo;
+	private ImplOptionsFormat implOptions;
 	private Map<String, String> implMethods;
 	
 	public ImplFormat() {
 		
 	}
 	
-	public ImplFormat(TiposImpl tipo, Map<String, String> implMethods) {
-		this.tipo = tipo;
+	public ImplFormat(ImplOptionsFormat implOptions, Map<String, String> implMethods) {
+		this.implOptions = implOptions;
 		this.implMethods = implMethods;
 	}
-
-	public TiposImpl getTipo() {
-		return tipo;
+	
+	public ImplOptionsFormat getImplOptions() {
+		return implOptions;
 	}
 
-	public void setTipo(TiposImpl tipo) {
-		this.tipo = tipo;
+	public void setImplOptions(ImplOptionsFormat implOptions) {
+		this.implOptions = implOptions;
 	}
 
 	public Map<String, String> getImplMethods() {
@@ -31,5 +31,4 @@ public class ImplFormat {
 	public void setImplMethods(Map<String, String> implMethods) {
 		this.implMethods = implMethods;
 	}	
-
 }

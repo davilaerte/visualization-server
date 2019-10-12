@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.visualization.impl.models.ILinkedList;
-import com.example.visualization.impl.models.Node;
-import com.example.visualization.models.DSImplFormat;
-import com.example.visualization.models.LinkImplFormat;
-import com.example.visualization.models.NodeImplFormat;
+import com.example.visualization.impl.models.LinkedListNode;
+import com.example.visualization.models.DSVisualizationFormat;
+import com.example.visualization.models.LinkVisualizationFormat;
+import com.example.visualization.models.NodeVisualizationFormat;
 
 import net.openhft.compiler.CompilerUtils;
 
@@ -52,24 +52,24 @@ public class VisualizationRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<DSImplFormat> getAdd(@RequestParam("id") String id, @RequestBody String element) {
+	public ResponseEntity<DSVisualizationFormat> getAdd(@RequestParam("id") String id, @RequestBody String element) {
 		ILinkedList ed = eds.get(id);
 		ed.insert(Integer.valueOf(element.toString().substring(1,element.toString().length()-1)));
 		
-		DSImplFormat formatedEd = new DSImplFormat();
-		Node node = ed.getHead();
+		DSVisualizationFormat formatedEd = new DSVisualizationFormat();
+		LinkedListNode node = ed.getHead();
 		Integer counter = 0;
 		while(node != null) {
-			NodeImplFormat formatedNode = new NodeImplFormat(counter, String.valueOf(node.data));
+			NodeVisualizationFormat formatedNode = new NodeVisualizationFormat(counter, String.valueOf(node.data));
 			formatedEd.nodes.add(formatedNode);
 			if (node.next != null) {
-				LinkImplFormat formatedLink = new LinkImplFormat(counter, counter + 1);
+				LinkVisualizationFormat formatedLink = new LinkVisualizationFormat(counter, counter + 1);
 				formatedEd.links.add(formatedLink);
 			}			
 			counter++;
 			node = node.next;
 		}
 
-		return new ResponseEntity<DSImplFormat>(formatedEd, HttpStatus.OK);
+		return new ResponseEntity<DSVisualizationFormat>(formatedEd, HttpStatus.OK);
 	}
 }
