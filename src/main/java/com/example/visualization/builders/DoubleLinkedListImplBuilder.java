@@ -7,8 +7,10 @@ import com.example.visualization.util.Util;
 
 public class DoubleLinkedListImplBuilder extends LinkedListImplBuilder {
 	
+	private static final String DOUBLE_LINKED_LIST_NAME = "DoubleLinkedList";
+	
 	public DoubleLinkedListImplBuilder(String implClassName, String implPackageName ,Map<String, String> implMethods) {
-		super(implClassName, IDoubleLinkedList.class.getSimpleName(), implPackageName, implMethods);
+		super(DOUBLE_LINKED_LIST_NAME + implClassName, IDoubleLinkedList.class.getSimpleName(), implPackageName, implMethods);
 	}
 	
 	@Override

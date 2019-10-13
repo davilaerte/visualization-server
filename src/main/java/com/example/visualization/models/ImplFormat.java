@@ -8,7 +8,6 @@ public class ImplFormat {
 	private Map<String, String> implMethods;
 	
 	public ImplFormat() {
-		
 	}
 	
 	public ImplFormat(ImplOptionsFormat implOptions, Map<String, String> implMethods) {
@@ -30,5 +29,10 @@ public class ImplFormat {
 
 	public void setImplMethods(Map<String, String> implMethods) {
 		this.implMethods = implMethods;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "ImplFormat [implOptions=" + implOptions + ", implMethods=" + implMethods + "]";
+	}
 }

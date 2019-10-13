@@ -7,6 +7,8 @@ import com.example.visualization.impl.models.IDoubleLinkedList;
 import com.example.visualization.impl.models.ILinkedList;
 import com.example.visualization.models.DSVisualizationFormat;
 import com.example.visualization.models.ImplOptionsFormat;
+import com.example.visualization.models.NameImplMethod;
+import com.example.visualization.models.RunImplFormat;
 import com.example.visualization.models.TiposImpl;
 import com.example.visualization.util.Util;
 
@@ -20,7 +22,7 @@ public class DSHashImplsController {
 		this.doubleLinkedListImpls = new HashMap<String, IDoubleLinkedList>();
 	}
 	
-	public void saveImpl(TiposImpl tipo, String id, Class<?> implClass) throws InstantiationException, IllegalAccessException {
+	public ImplOptionsFormat saveImpl(TiposImpl tipo, String id, Class<?> implClass) throws InstantiationException, IllegalAccessException {
 		if (tipo.equals(TiposImpl.LINKED_LIST)) {
 			@SuppressWarnings("deprecation")
 			ILinkedList newLinkedListImpl = (ILinkedList)implClass.newInstance();
@@ -30,21 +32,24 @@ public class DSHashImplsController {
 			IDoubleLinkedList newDoubleLinkedListImpl = (IDoubleLinkedList)implClass.newInstance();
 			this.doubleLinkedListImpls.put(id, newDoubleLinkedListImpl);
 		}
+		
+		return new ImplOptionsFormat(tipo, id);
 	}
 	
-	public DSVisualizationFormat runImplMethod(ImplOptionsFormat options, String nameMethod, Integer element) {
+	public DSVisualizationFormat runImplMethod(RunImplFormat runOptions) {
 		DSVisualizationFormat dsFormat = null;
+		ImplOptionsFormat options = runOptions.getOptions();
 		
 		if (options.getTipo().equals(TiposImpl.LINKED_LIST)) {
 			ILinkedList linkedListImpl = this.linkedListImpls.get(options.getId());
 			if (linkedListImpl != null) {
-				runLinkedListMethod(linkedListImpl, nameMethod, element);
+				runLinkedListMethod(linkedListImpl, runOptions.getNameMethod(), runOptions.getElement());
 				dsFormat = Util.formatLinkedList(linkedListImpl.getHead());
 			}
 		} else {
 			IDoubleLinkedList doubleLinkedListImpl = this.doubleLinkedListImpls.get(options.getId());
 			if (doubleLinkedListImpl != null) {
-				runDoubleLinkedListMethod(doubleLinkedListImpl, nameMethod, element);
+				runDoubleLinkedListMethod(doubleLinkedListImpl, runOptions.getNameMethod(), runOptions.getElement());
 				dsFormat = Util.formatDoubleLinkedList(doubleLinkedListImpl.getHead());
 			}
 		}
@@ -60,24 +65,24 @@ public class DSHashImplsController {
 		}
 	}
 	
-	private void runLinkedListMethod(ILinkedList linkedListImpl, String method, Integer element) {
-		if (method.equals("insert")) {
+	private void runLinkedListMethod(ILinkedList linkedListImpl, NameImplMethod method, Integer element) {
+		if (method.equals(NameImplMethod.INSERT)) {
 			linkedListImpl.insert(element);
-		} else if (method.equals("remove")) {
+		} else if (method.equals(NameImplMethod.REMOVE)) {
 			linkedListImpl.remove(element);
 		}
 	}
 	
-	private void runDoubleLinkedListMethod(IDoubleLinkedList doubleLinkedListImpl, String method, Integer element) {
-		if (method.equals("insert")) {
+	private void runDoubleLinkedListMethod(IDoubleLinkedList doubleLinkedListImpl, NameImplMethod method, Integer element) {
+		if (method.equals(NameImplMethod.INSERT)) {
 			doubleLinkedListImpl.insert(element);
-		} else if (method.equals("remove")) {
+		} else if (method.equals(NameImplMethod.REMOVE)) {
 			doubleLinkedListImpl.remove(element);
-		} else if (method.equals("insertFirst")) {
+		} else if (method.equals(NameImplMethod.INSERT_FIRST)) {
 			doubleLinkedListImpl.insertFirst(element);
-		} else if (method.equals("removeFirst")) {
+		} else if (method.equals(NameImplMethod.REMOVE_FIRST)) {
 			doubleLinkedListImpl.removeFirst();
-		} else if (method.equals("removeLast")) {
+		} else if (method.equals(NameImplMethod.REMOVE_LAST)) {
 			doubleLinkedListImpl.removeLast();
 		}
 	}

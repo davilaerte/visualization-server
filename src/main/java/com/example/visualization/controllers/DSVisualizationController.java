@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import com.example.visualization.builders.ClassImplBuilder;
 import com.example.visualization.builders.DoubleLinkedListImplBuilder;
 import com.example.visualization.builders.LinkedListImplBuilder;
+import com.example.visualization.models.DSVisualizationFormat;
 import com.example.visualization.models.ImplFormat;
 import com.example.visualization.models.ImplOptionsFormat;
+import com.example.visualization.models.RunImplFormat;
 import com.example.visualization.models.TiposImpl;
 import com.example.visualization.util.IdGenerator;
 import com.example.visualization.util.Util;
@@ -16,8 +18,8 @@ import net.openhft.compiler.CompilerUtils;
 @Controller
 public class DSVisualizationController {
 	
-	private final String PACKAGE_PATH = "com.example.visualization.impl.models";
-	private final String NAME_IMPL_CLASS = "DSImpl";
+	private static final String PACKAGE_PATH = "com.example.visualization.impl.models";
+	private static final String NAME_IMPL_CLASS = "DSImpl";
 	
 	private DSHashImplsController hashImplController;
 	private IdGenerator idGenerator;
@@ -27,30 +29,27 @@ public class DSVisualizationController {
 		this.idGenerator = new IdGenerator();
 	}
 	
-	public void createNewDSImpl(ImplFormat impl) {
-		ImplOptionsFormat implOptions = impl.getImplOptions();
-		
+	public ImplOptionsFormat createNewDSImpl(ImplFormat impl) {
+		ImplOptionsFormat implOptions = impl.getImplOptions();		
 		String classImplId = Util.isValidString(implOptions.getId()) ? 
 							 implOptions.getId():this.idGenerator.generateNewDSId(implOptions.getTipo());
-		String className = NAME_IMPL_CLASS + classImplId;
-		String classPath = PACKAGE_PATH + "." + className;
 		
-		ClassImplBuilder builder = getClassImplBuilder(impl, className);
+		ClassImplBuilder builder = getClassImplBuilder(impl, NAME_IMPL_CLASS + classImplId);
+		String classPath = PACKAGE_PATH + "." + builder.getImplClassName();
 		
 		try {
 			ClassLoader classLoader = new ClassLoader() { };
 			Class<?> implClass = CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, classPath, builder.buildImpl());
-			this.hashImplController.saveImpl(implOptions.getTipo(), classImplId, implClass);
+			return this.hashImplController.saveImpl(implOptions.getTipo(), classImplId, implClass);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
-	public void runDSImpl() {
-		//Obter DS Impl do seu hash
-		//Rodar Método
-		//Processar Possiveis Erros
-		//Processar Saida
+	public DSVisualizationFormat runDSImpl(RunImplFormat runOptions) {
+		return this.hashImplController.runImplMethod(runOptions);
 	}
 	
 	public void deleteDSImpl(ImplOptionsFormat options) {

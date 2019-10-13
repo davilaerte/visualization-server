@@ -6,7 +6,6 @@ public class ImplOptionsFormat {
 	private String id;
 	
 	public ImplOptionsFormat() {
-		
 	}
 	
 	public ImplOptionsFormat(TiposImpl tipo, String id) {
@@ -28,5 +27,10 @@ public class ImplOptionsFormat {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "ImplOptionsFormat [tipo=" + tipo + ", id=" + id + "]";
 	}
 }

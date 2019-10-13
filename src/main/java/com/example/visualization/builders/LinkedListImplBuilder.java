@@ -7,6 +7,8 @@ import com.example.visualization.util.Util;
 
 public class LinkedListImplBuilder extends ClassImplBuilder {
 	
+	private static final String LINKED_LIST_NAME = "LinkedList";
+	
 	public Map<String, String> implMethods;
 	
 	public LinkedListImplBuilder(String implClassName, String interfaceName, String implPackageName ,Map<String, String> implMethods) {
@@ -15,7 +17,7 @@ public class LinkedListImplBuilder extends ClassImplBuilder {
 	}
 	
 	public LinkedListImplBuilder(String implClassName, String implPackageName ,Map<String, String> implMethods) {
-		super(implClassName, ILinkedList.class.getSimpleName(), implPackageName);
+		super(LINKED_LIST_NAME + implClassName, ILinkedList.class.getSimpleName(), implPackageName);
 		this.implMethods = implMethods;
 	}
 	

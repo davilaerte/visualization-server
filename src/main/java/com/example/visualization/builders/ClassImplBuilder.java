@@ -26,4 +26,8 @@ public class ClassImplBuilder {
 								"implements " + this.interfaceName + " ":"";
 		return packpageName + className + classInterface + "{";
 	}
+	
+	public String getImplClassName() {
+		return this.implClassName;
+	}
 }

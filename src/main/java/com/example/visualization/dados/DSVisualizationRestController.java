@@ -9,29 +9,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.visualization.controllers.DSVisualizationController;
+import com.example.visualization.models.DSVisualizationFormat;
 import com.example.visualization.models.ImplFormat;
+import com.example.visualization.models.ImplOptionsFormat;
+import com.example.visualization.models.RunImplFormat;
 
 @RestController
-@RequestMapping("/DataStructureImpl")
+@RequestMapping("/datas-structure-impl")
 public class DSVisualizationRestController {
 	
 	@Autowired
 	private DSVisualizationController dsVisualizationController; 
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> createNewDSImpl(@RequestBody ImplFormat impl) {
-		this.dsVisualizationController.createNewDSImpl(impl);
-		return new ResponseEntity<String>(HttpStatus.OK);
+	public ResponseEntity<ImplOptionsFormat> createNewDSImpl(@RequestBody ImplFormat impl) {
+		ImplOptionsFormat options = this.dsVisualizationController.createNewDSImpl(impl);
+		return new ResponseEntity<ImplOptionsFormat>(options, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<String> runDSImplMethod() {
-		return new ResponseEntity<String>(HttpStatus.OK);
+	public ResponseEntity<DSVisualizationFormat> runDSImplMethod(@RequestBody RunImplFormat runOptions) {
+		DSVisualizationFormat visualizationFormat = this.dsVisualizationController.runDSImpl(runOptions);
+		return new ResponseEntity<DSVisualizationFormat>(visualizationFormat, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteDSImpl() {
-		return new ResponseEntity<String>(HttpStatus.OK);
+	public ResponseEntity<?> deleteDSImpl(@RequestBody ImplOptionsFormat options) {
+		this.dsVisualizationController.deleteDSImpl(options);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-
 }
