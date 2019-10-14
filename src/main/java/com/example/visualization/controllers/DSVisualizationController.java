@@ -1,10 +1,17 @@
 package com.example.visualization.controllers;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+
 import org.springframework.stereotype.Controller;
 
 import com.example.visualization.builders.ClassImplBuilder;
 import com.example.visualization.builders.DoubleLinkedListImplBuilder;
 import com.example.visualization.builders.LinkedListImplBuilder;
+import com.example.visualization.exceptions.CompilationErrorException;
 import com.example.visualization.models.DSVisualizationFormat;
 import com.example.visualization.models.ImplFormat;
 import com.example.visualization.models.ImplOptionsFormat;
@@ -29,7 +36,7 @@ public class DSVisualizationController {
 		this.idGenerator = new IdGenerator();
 	}
 	
-	public ImplOptionsFormat createNewDSImpl(ImplFormat impl) {
+	public ImplOptionsFormat createNewDSImpl(ImplFormat impl) throws Exception {
 		ImplOptionsFormat implOptions = impl.getImplOptions();		
 		String classImplId = Util.isValidString(implOptions.getId()) ? 
 							 implOptions.getId():this.idGenerator.generateNewDSId(implOptions.getTipo());
@@ -37,15 +44,19 @@ public class DSVisualizationController {
 		ClassImplBuilder builder = getClassImplBuilder(impl, NAME_IMPL_CLASS + classImplId);
 		String classPath = PACKAGE_PATH + "." + builder.getImplClassName();
 		
+		ClassLoader classLoader = new ClassLoader() { };
+		StringWriter outCompilationError = new StringWriter();
+		PrintWriter writeError = new PrintWriter(outCompilationError);
+		Class<?> implClass;
 		try {
-			ClassLoader classLoader = new ClassLoader() { };
-			Class<?> implClass = CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, classPath, builder.buildImpl());
-			return this.hashImplController.saveImpl(implOptions.getTipo(), classImplId, implClass);
-		} catch (Exception e) {
-			e.printStackTrace();
+			implClass = CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, classPath, builder.buildImpl(), writeError);
+		} finally {
+			if (Util.isValidString(outCompilationError.toString())) {
+				throw new CompilationErrorException(outCompilationError.toString());
+			}
 		}
 		
-		return null;
+		return this.hashImplController.saveImpl(implOptions.getTipo(), classImplId, implClass);
 	}
 	
 	public DSVisualizationFormat runDSImpl(RunImplFormat runOptions) {

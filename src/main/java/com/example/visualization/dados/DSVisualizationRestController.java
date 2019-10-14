@@ -22,7 +22,7 @@ public class DSVisualizationRestController {
 	private DSVisualizationController dsVisualizationController; 
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ImplOptionsFormat> createNewDSImpl(@RequestBody ImplFormat impl) {
+	public ResponseEntity<ImplOptionsFormat> createNewDSImpl(@RequestBody ImplFormat impl) throws Exception {
 		ImplOptionsFormat options = this.dsVisualizationController.createNewDSImpl(impl);
 		return new ResponseEntity<ImplOptionsFormat>(options, HttpStatus.OK);
 	}
