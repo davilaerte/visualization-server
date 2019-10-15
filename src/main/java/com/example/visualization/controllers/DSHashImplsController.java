@@ -3,6 +3,7 @@ package com.example.visualization.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.visualization.exceptions.RunImplErrorException;
 import com.example.visualization.impl.models.IDoubleLinkedList;
 import com.example.visualization.impl.models.ILinkedList;
 import com.example.visualization.models.DSVisualizationFormat;
@@ -36,20 +37,28 @@ public class DSHashImplsController {
 		return new ImplOptionsFormat(tipo, id);
 	}
 	
-	public DSVisualizationFormat runImplMethod(RunImplFormat runOptions) {
+	public DSVisualizationFormat runImplMethod(RunImplFormat runOptions) throws RunImplErrorException {
 		DSVisualizationFormat dsFormat = null;
 		ImplOptionsFormat options = runOptions.getOptions();
 		
 		if (options.getTipo().equals(TiposImpl.LINKED_LIST)) {
 			ILinkedList linkedListImpl = this.linkedListImpls.get(options.getId());
 			if (linkedListImpl != null) {
-				runLinkedListMethod(linkedListImpl, runOptions.getNameMethod(), runOptions.getElement());
+				try {
+					runLinkedListMethod(linkedListImpl, runOptions.getNameMethod(), runOptions.getElement());
+				} catch (Exception e) {
+					throw new RunImplErrorException(e);
+				}
 				dsFormat = Util.formatLinkedList(linkedListImpl.getHead());
 			}
 		} else {
 			IDoubleLinkedList doubleLinkedListImpl = this.doubleLinkedListImpls.get(options.getId());
 			if (doubleLinkedListImpl != null) {
-				runDoubleLinkedListMethod(doubleLinkedListImpl, runOptions.getNameMethod(), runOptions.getElement());
+				try {
+					runDoubleLinkedListMethod(doubleLinkedListImpl, runOptions.getNameMethod(), runOptions.getElement());
+				} catch (Exception e) {
+					throw new RunImplErrorException(e);
+				}
 				dsFormat = Util.formatDoubleLinkedList(doubleLinkedListImpl.getHead());
 			}
 		}

@@ -28,7 +28,7 @@ public class DSVisualizationRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<DSVisualizationFormat> runDSImplMethod(@RequestBody RunImplFormat runOptions) {
+	public ResponseEntity<DSVisualizationFormat> runDSImplMethod(@RequestBody RunImplFormat runOptions) throws Exception {
 		DSVisualizationFormat visualizationFormat = this.dsVisualizationController.runDSImpl(runOptions);
 		return new ResponseEntity<DSVisualizationFormat>(visualizationFormat, HttpStatus.OK);
 	}

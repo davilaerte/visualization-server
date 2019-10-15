@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import com.example.visualization.builders.ClassImplBuilder;
 import com.example.visualization.builders.DoubleLinkedListImplBuilder;
 import com.example.visualization.builders.LinkedListImplBuilder;
-import com.example.visualization.exceptions.CompilationErrorException;
+import com.example.visualization.exceptions.CompilationImplErrorException;
 import com.example.visualization.models.DSVisualizationFormat;
 import com.example.visualization.models.ImplFormat;
 import com.example.visualization.models.ImplOptionsFormat;
@@ -52,14 +52,14 @@ public class DSVisualizationController {
 			implClass = CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, classPath, builder.buildImpl(), writeError);
 		} finally {
 			if (Util.isValidString(outCompilationError.toString())) {
-				throw new CompilationErrorException(outCompilationError.toString());
+				throw new CompilationImplErrorException(outCompilationError.toString());
 			}
 		}
 		
 		return this.hashImplController.saveImpl(implOptions.getTipo(), classImplId, implClass);
 	}
 	
-	public DSVisualizationFormat runDSImpl(RunImplFormat runOptions) {
+	public DSVisualizationFormat runDSImpl(RunImplFormat runOptions) throws Exception {
 		return this.hashImplController.runImplMethod(runOptions);
 	}
 	
