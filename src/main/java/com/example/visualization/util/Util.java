@@ -30,20 +30,22 @@ public class Util {
 		Map<LinkedListNode, Integer> visitedNodes = new HashMap<LinkedListNode, Integer>();
 		LinkedList<LinkedListNode> queue = new LinkedList<LinkedListNode>();
 		
-		queue.addLast(head);
-		Integer counterId = 1;
-		visitedNodes.put(head, counterId);
-		while(!queue.isEmpty()) {
-			LinkedListNode currNode = queue.removeFirst();	
-			Integer currNodeId = visitedNodes.get(currNode);
-			formatedLinkedList.nodes.add(new NodeVisualizationFormat(currNodeId, String.valueOf(currNode.data)));
-			
-			if (currNode.next != null) {
-				if (!visitedNodes.containsKey(currNode.next)) {
-					queue.addLast(currNode.next);
-					visitedNodes.put(currNode.next, ++counterId);
+		if (head != null) {
+			queue.addLast(head);
+			Integer counterId = 1;
+			visitedNodes.put(head, counterId);
+			while(!queue.isEmpty()) {
+				LinkedListNode currNode = queue.removeFirst();	
+				Integer currNodeId = visitedNodes.get(currNode);
+				formatedLinkedList.nodes.add(new NodeVisualizationFormat(currNodeId, String.valueOf(currNode.data)));
+				
+				if (currNode.next != null) {
+					if (!visitedNodes.containsKey(currNode.next)) {
+						queue.addLast(currNode.next);
+						visitedNodes.put(currNode.next, ++counterId);
+					}
+					formatedLinkedList.links.add(new LinkVisualizationFormat(currNodeId, visitedNodes.get(currNode.next)));
 				}
-				formatedLinkedList.links.add(new LinkVisualizationFormat(currNodeId, visitedNodes.get(currNode.next)));
 			}
 		}
 		
