@@ -28,16 +28,16 @@ public class DoubleLinkedListImplBuilder extends LinkedListImplBuilder {
 	@Override
 	public String buildImplAttributes() {
 		return " private DoubleLinkedListNode head; " + 
-			   " private DoubleLinkedListNode last; ";
+			   " private DoubleLinkedListNode last; " + System.lineSeparator() + System.lineSeparator();
 	}
 	
 	public String buildImplInsertFirstMethod() {
 		String nameMethod = "insertFirst";
 		String bodyMethod = Util.isValidString(this.implMethods.get(nameMethod)) ?
 							Util.processCode(this.implMethods.get(nameMethod)):"";
-		String method = "public void " + nameMethod + "(Integer element) { " + 
-							bodyMethod +
-						" } ";
+		String method = " public void " + nameMethod + "(Integer element) { " + System.lineSeparator() + 
+							bodyMethod + System.lineSeparator() +
+						" } " + System.lineSeparator() + System.lineSeparator();
 		return method;
 	}
 	
@@ -45,9 +45,9 @@ public class DoubleLinkedListImplBuilder extends LinkedListImplBuilder {
 		String nameMethod = "removeFirst";
 		String bodyMethod = Util.isValidString(this.implMethods.get(nameMethod)) ?
 							Util.processCode(this.implMethods.get(nameMethod)):"";
-		String method = "public void " + nameMethod + "() { " + 
-							bodyMethod +
-						" } ";
+		String method = " public void " + nameMethod + "() { " + System.lineSeparator() + 
+							bodyMethod + System.lineSeparator() +
+						" } " + System.lineSeparator() + System.lineSeparator();
 		return method;
 	}
 	
@@ -55,17 +55,17 @@ public class DoubleLinkedListImplBuilder extends LinkedListImplBuilder {
 		String nameMethod = "removeLast";
 		String bodyMethod = Util.isValidString(this.implMethods.get(nameMethod)) ?
 							Util.processCode(this.implMethods.get(nameMethod)):"";
-		String method = "public void " + nameMethod + "() { " + 
-							bodyMethod +
-						" } ";
+		String method = " public void " + nameMethod + "() { " + System.lineSeparator() + 
+							bodyMethod + System.lineSeparator() +
+						" } " + System.lineSeparator() + System.lineSeparator();
 		return method;
 	}
 	
 	@Override
 	public String buildDefaultGetHeadMethod() {
-		String method = "public DoubleLinkedListNode getHead() { " + 
-				 			"return this.head;" +
-				 		" } ";
+		String method = " public DoubleLinkedListNode getHead() { " + System.lineSeparator() + 
+				 			"  return this.head;" + System.lineSeparator() +
+				 		" } " + System.lineSeparator();
 		return method;
 	}
 }

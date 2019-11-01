@@ -31,16 +31,16 @@ public class LinkedListImplBuilder extends ClassImplBuilder {
 	}
 	
 	public String buildImplAttributes() {
-		return " private LinkedListNode head; ";
+		return " private LinkedListNode head; " + System.lineSeparator() + System.lineSeparator();
 	}
 	
 	public String buildImplInsertMethod() {
 		String nameMethod = "insert";
 		String bodyMethod = Util.isValidString(implMethods.get(nameMethod)) ?
 							Util.processCode(implMethods.get(nameMethod)):"";
-		String method = "public void " + nameMethod + "(Integer element) { " + 
-							bodyMethod +
-						" } ";
+		String method = " public void " + nameMethod + "(Integer element) { " + System.lineSeparator() + 
+							bodyMethod + System.lineSeparator() +
+						" } " + System.lineSeparator() + System.lineSeparator();
 		return method;
 	}
 	
@@ -48,16 +48,16 @@ public class LinkedListImplBuilder extends ClassImplBuilder {
 		String nameMethod = "remove";
 		String bodyMethod = Util.isValidString(implMethods.get(nameMethod)) ?
 							Util.processCode(implMethods.get(nameMethod)):"";
-		String method = "public void " + nameMethod + "(Integer element) { " + 
-							bodyMethod +
-						" } ";
+		String method = " public void " + nameMethod + "(Integer element) { " + System.lineSeparator() + 
+							bodyMethod + System.lineSeparator() +
+						" } " + System.lineSeparator() + System.lineSeparator();
 		return method;
 	}
 	
 	public String buildDefaultGetHeadMethod() {
-		String method = "public LinkedListNode getHead() { " + 
-				 			"return this.head;" +
-				 		" } ";
+		String method = " public LinkedListNode getHead() { " + System.lineSeparator() + 
+				 			"  return this.head;" + System.lineSeparator() +
+				 		" } " + System.lineSeparator();
 		return method;
 	}
 }

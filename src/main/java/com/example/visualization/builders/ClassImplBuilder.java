@@ -24,7 +24,7 @@ public class ClassImplBuilder {
 		String className = "public class " + this.implClassName + " ";
 		String classInterface = Util.isValidString(this.interfaceName) ?
 								"implements " + this.interfaceName + " ":"";
-		return packpageName + className + classInterface + "{";
+		return packpageName + className + classInterface + "{" + System.lineSeparator();
 	}
 	
 	public String getImplClassName() {
