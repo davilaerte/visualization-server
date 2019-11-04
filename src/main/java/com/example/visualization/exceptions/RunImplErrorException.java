@@ -11,4 +11,8 @@ public class RunImplErrorException extends Exception {
 	public RunImplErrorException(Exception e) {
 		super(e);
 	}
+	
+	public RunImplErrorException(Throwable e) {
+		super(e);
+	}
 }

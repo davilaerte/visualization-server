@@ -56,25 +56,27 @@ public class Util {
 		}
 		
 		
-		setNodeLabels(formatedLinkedList.nodes);
+		setLinkedNodeLabels(formatedLinkedList.nodes);
 		
 		return formatedLinkedList;
 	}
 	
-	public static DSVisualizationFormat formatDoubleLinkedList(DoubleLinkedListNode head) {
+	public static DSVisualizationFormat formatDoubleLinkedList(DoubleLinkedListNode head, DoubleLinkedListNode last) {
 		DSVisualizationFormat formatedDoubleLinkedList = new DSVisualizationFormat();
 		
 		Map<DoubleLinkedListNode, Integer> visitedNodes = new HashMap<DoubleLinkedListNode, Integer>();
 		LinkedList<DoubleLinkedListNode> queue = new LinkedList<DoubleLinkedListNode>();
+		Integer counterId = 0;
 		
 		if (head != null) {
 			queue.addLast(head);
-			Integer counterId = 1;
-			visitedNodes.put(head, counterId);
+			visitedNodes.put(head, ++counterId);
 			while(!queue.isEmpty()) {
-				DoubleLinkedListNode currNode = queue.removeFirst();	
+				DoubleLinkedListNode currNode = queue.removeFirst();
 				Integer currNodeId = visitedNodes.get(currNode);
-				formatedDoubleLinkedList.nodes.add(new NodeVisualizationFormat(currNodeId, String.valueOf(currNode.data)));
+				NodeVisualizationFormat nodeVisualization = new NodeVisualizationFormat(currNodeId, String.valueOf(currNode.data)); 
+				setDoubleLinkedNodeLabels(currNode, nodeVisualization, head, last);
+				formatedDoubleLinkedList.nodes.add(nodeVisualization);
 				
 				if (currNode.previous != null) {
 					if (!visitedNodes.containsKey(currNode.previous)) {
@@ -94,17 +96,53 @@ public class Util {
 			}
 		}
 		
-		setNodeLabels(formatedDoubleLinkedList.nodes);
+		if (last != null && !visitedNodes.containsKey(last)) {
+			queue.addLast(last);
+			visitedNodes.put(last, ++counterId);
+			while(!queue.isEmpty()) {
+				DoubleLinkedListNode currNode = queue.removeFirst();	
+				Integer currNodeId = visitedNodes.get(currNode);
+				NodeVisualizationFormat nodeVisualization = new NodeVisualizationFormat(currNodeId, String.valueOf(currNode.data));
+				setDoubleLinkedNodeLabels(currNode, nodeVisualization, head, last);
+				formatedDoubleLinkedList.nodes.add(nodeVisualization);
+				
+				if (currNode.previous != null) {
+					if (!visitedNodes.containsKey(currNode.previous)) {
+						queue.addLast(currNode.previous);
+						visitedNodes.put(currNode.previous, ++counterId);
+					}
+					formatedDoubleLinkedList.links.add(new LinkVisualizationFormat(currNodeId, visitedNodes.get(currNode.previous), LABEL_PREV));
+				}
+				
+				if (currNode.next != null) {
+					if (!visitedNodes.containsKey(currNode.next)) {
+						queue.addLast(currNode.next);
+						visitedNodes.put(currNode.next, ++counterId);
+					}
+					formatedDoubleLinkedList.links.add(new LinkVisualizationFormat(currNodeId, visitedNodes.get(currNode.next), LABEL_NEXT));
+				}
+			}
+		}
 		
 		return formatedDoubleLinkedList;
 	}
 	
-	public static void setNodeLabels(List<NodeVisualizationFormat> nodes) {
+	public static void setLinkedNodeLabels(List<NodeVisualizationFormat> nodes) {
 		if(nodes.size() == 1) {
 			nodes.get(0).setLabel(LABEL_HEAD + "/" + LABEL_TAIL);
 		} else if(nodes.size() > 1) {
 			nodes.get(0).setLabel(LABEL_HEAD);
 			nodes.get(nodes.size() - 1).setLabel(LABEL_TAIL);
+		}
+	}
+	
+	public static void setDoubleLinkedNodeLabels(DoubleLinkedListNode currNode, NodeVisualizationFormat nodeVisualization, DoubleLinkedListNode head, DoubleLinkedListNode last) {
+		if (currNode.equals(head) && currNode.equals(last)) {
+			nodeVisualization.setLabel(LABEL_HEAD + "/" + LABEL_TAIL);
+		} else if (currNode.equals(head)) {
+			nodeVisualization.setLabel(LABEL_HEAD);
+		} else if (currNode.equals(last)) {
+			nodeVisualization.setLabel(LABEL_TAIL);
 		}
 	}
 }

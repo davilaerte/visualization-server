@@ -22,13 +22,14 @@ public class DoubleLinkedListImplBuilder extends LinkedListImplBuilder {
 			   buildImplRemoveMethod() + 
 			   buildImplRemoveFirstMethod() +
 			   buildImplRemoveLastMethod() +
-			   buildDefaultGetHeadMethod() + "}";
+			   buildDefaultGetHeadMethod() +
+			   buildDefaultGetLastMethod() + "}";
 	}
 	
 	@Override
 	public String buildImplAttributes() {
-		return " private DoubleLinkedListNode head; " + 
-			   " private DoubleLinkedListNode last; " + System.lineSeparator() + System.lineSeparator();
+		return " private DoubleLinkedListNode head;" + System.lineSeparator() +
+		       " private DoubleLinkedListNode last;" + System.lineSeparator() + System.lineSeparator();
 	}
 	
 	public String buildImplInsertFirstMethod() {
@@ -65,6 +66,13 @@ public class DoubleLinkedListImplBuilder extends LinkedListImplBuilder {
 	public String buildDefaultGetHeadMethod() {
 		String method = " public DoubleLinkedListNode getHead() { " + System.lineSeparator() + 
 				 			"  return this.head;" + System.lineSeparator() +
+				 		" } " + System.lineSeparator() + System.lineSeparator();
+		return method;
+	}
+	
+	public String buildDefaultGetLastMethod() {
+		String method = " public DoubleLinkedListNode getLast() { " + System.lineSeparator() + 
+				 			"  return this.last;" + System.lineSeparator() +
 				 		" } " + System.lineSeparator();
 		return method;
 	}

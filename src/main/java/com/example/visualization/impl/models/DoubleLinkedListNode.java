@@ -12,6 +12,6 @@ public class DoubleLinkedListNode {
 	public DoubleLinkedListNode(Integer data, DoubleLinkedListNode next, DoubleLinkedListNode previous) {
 		this.data = data;
 		this.next = next;
-		this.previous = next;
+		this.previous = previous;
 	}
 }

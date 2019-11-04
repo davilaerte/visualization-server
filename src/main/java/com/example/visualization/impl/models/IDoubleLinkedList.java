@@ -13,4 +13,6 @@ public interface IDoubleLinkedList {
 	public void removeLast();
 	
 	public DoubleLinkedListNode getHead();
+	
+	public DoubleLinkedListNode getLast();
 }
