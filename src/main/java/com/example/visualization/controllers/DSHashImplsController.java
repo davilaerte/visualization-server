@@ -70,7 +70,7 @@ public class DSHashImplsController {
 				} catch(TimeoutException e) {
 					throw new TimeoutRunMethodException(runOptions.getNameMethod());
 				} catch (Exception e) {
-					throw new RunImplErrorException(e);
+					throw new RunImplErrorException(e.getCause());
 				}
 				dsFormat = Util.formatDoubleLinkedList(doubleLinkedListImpl.getHead(), doubleLinkedListImpl.getLast());
 			}
