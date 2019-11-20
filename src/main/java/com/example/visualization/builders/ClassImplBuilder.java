@@ -1,6 +1,6 @@
 package com.example.visualization.builders;
 
-import com.example.visualization.util.Util;
+import com.example.visualization.helpers.Util;
 
 public class ClassImplBuilder {
 	

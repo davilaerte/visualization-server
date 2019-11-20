@@ -1,4 +1,4 @@
-package com.example.visualization.util;
+package com.example.visualization.helpers;
 
 import java.util.concurrent.TimeoutException;
 

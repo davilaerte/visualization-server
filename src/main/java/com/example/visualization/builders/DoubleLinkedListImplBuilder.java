@@ -2,8 +2,8 @@ package com.example.visualization.builders;
 
 import java.util.Map;
 
+import com.example.visualization.helpers.Util;
 import com.example.visualization.impl.models.IDoubleLinkedList;
-import com.example.visualization.util.Util;
 
 public class DoubleLinkedListImplBuilder extends LinkedListImplBuilder {
 	

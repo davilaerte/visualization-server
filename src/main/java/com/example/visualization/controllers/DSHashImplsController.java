@@ -6,6 +6,8 @@ import java.util.concurrent.TimeoutException;
 
 import com.example.visualization.exceptions.RunImplErrorException;
 import com.example.visualization.exceptions.TimeoutRunMethodException;
+import com.example.visualization.helpers.RunMethod;
+import com.example.visualization.helpers.Util;
 import com.example.visualization.impl.models.IDoubleLinkedList;
 import com.example.visualization.impl.models.ILinkedList;
 import com.example.visualization.models.DSVisualizationFormat;
@@ -13,8 +15,6 @@ import com.example.visualization.models.ImplOptionsFormat;
 import com.example.visualization.models.NameImplMethod;
 import com.example.visualization.models.RunImplFormat;
 import com.example.visualization.models.TiposImpl;
-import com.example.visualization.util.RunMethod;
-import com.example.visualization.util.Util;
 
 public class DSHashImplsController {
 	

@@ -12,13 +12,13 @@ import com.example.visualization.builders.ClassImplBuilder;
 import com.example.visualization.builders.DoubleLinkedListImplBuilder;
 import com.example.visualization.builders.LinkedListImplBuilder;
 import com.example.visualization.exceptions.CompilationImplErrorException;
+import com.example.visualization.helpers.IdGenerator;
+import com.example.visualization.helpers.Util;
 import com.example.visualization.models.DSVisualizationFormat;
 import com.example.visualization.models.ImplFormat;
 import com.example.visualization.models.ImplOptionsFormat;
 import com.example.visualization.models.RunImplFormat;
 import com.example.visualization.models.TiposImpl;
-import com.example.visualization.util.IdGenerator;
-import com.example.visualization.util.Util;
 
 import net.openhft.compiler.CompilerUtils;
 

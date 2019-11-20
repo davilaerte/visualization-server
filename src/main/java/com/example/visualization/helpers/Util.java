@@ -1,4 +1,4 @@
-package com.example.visualization.util;
+package com.example.visualization.helpers;
 
 import java.util.HashMap;
 import java.util.LinkedList;
